@@ -1,0 +1,34 @@
+# Giữ ở máy, không đưa lên GitHub
+# docs/: chỉ đưa proposal
+/docs/*
+!/docs/butterflynomics-mvp-proposal-*.md
+# Quy tắc và cấu hình cho Agent
+/agent-rules/
+/AGENTS.md
+/CLAUDE.md
+/.claude/
+
+# Build / phụ thuộc
+node_modules/
+dist/
+target/
+*.tsbuildinfo
+
+# Cấu hình cục bộ và bí mật
+*.local
+.env
+.env.*
+!.env.example
+
+# Báo cáo đo, ảnh chụp tạm, log
+lighthouse-*.json
+shots/
+*.log
+
+# Editor / hệ điều hành
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+/src/backend/docs/
