@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: bfn-postgres
+    environment:
+      POSTGRES_DB: bfn_db
+      POSTGRES_USER: bfn_user
+      POSTGRES_PASSWORD: bfn_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - bfn-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bfn_user -d bfn_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build: .
+    container_name: bfn-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Trong container, localhost là chính container; DB nằm ở dịch vụ "postgres"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bfn_db
+      BFN_JWT_SECRET: ${BFN_JWT_SECRET:-dev-only-secret-khong-dung-o-production-0123456789}
+    ports:
+      - "8080:8080"
+
+volumes:
+  bfn-pgdata:
