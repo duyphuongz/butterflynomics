@@ -1,0 +1,12 @@
+<!-- @dsCard group="Nhập liệu" height=360 subtitle="Dán bài báo, link, cỡ, trạng thái lỗi và bị khóa" -->
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><link rel="stylesheet" href="../../tokens.css"><link rel="stylesheet" href="../bundle.css"><style>body{margin:0;padding:24px;background:var(--surface);color:var(--ink)}.row{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:16px}.cap{font:400 12px/17px var(--font-sans);color:var(--ink-muted);margin:0 0 8px}</style></head><body class="bn">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:760px">
+<div class="bn-field"><label class="bn-label" for="a">Nội dung bài báo</label><textarea id="a" class="bn-textarea" placeholder="Dán link hoặc nội dung bài báo"></textarea><span class="bn-hint">Hệ thống chỉ lưu dữ kiện trích được, link và đoạn trích ngắn.</span></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div class="bn-field"><label class="bn-label" for="b">Link bài báo</label><input id="b" class="bn-input bn-input--lg" value="https://example.com/thue-moi" aria-invalid="true" aria-describedby="be"><span class="bn-error" id="be">Không đọc được nội dung từ link này. Dán trực tiếp văn bản bài báo.</span></div>
+<div class="bn-field"><label class="bn-label" for="c">Mức thuế (%)</label><input id="c" class="bn-input bn-mono" value="25" style="text-align:right"></div>
+<div class="bn-field"><label class="bn-label" for="e">Mã chứng khoán (cỡ nhỏ)</label><input id="e" class="bn-input bn-input--sm bn-mono" value="CTYA"></div>
+<div class="bn-field"><label class="bn-label" for="d">Phạm vi quốc gia</label><input id="d" class="bn-input" value="Trung Quốc" disabled></div>
+</div></div>
+</body></html>

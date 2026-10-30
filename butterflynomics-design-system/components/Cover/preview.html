@@ -1,0 +1,22 @@
+<!-- @dsCard height=300 -->
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><link rel="stylesheet" href="../../tokens.css"><link rel="stylesheet" href="../bundle.css"><style>
+html,body{margin:0;background:var(--surface)}
+.cv{position:relative;width:960px;height:300px;background:var(--surface);overflow:hidden}
+.cv svg{display:block}
+.b-navy{fill:var(--navy)}.b-ink{fill:var(--ink)}.b-exp3{fill:var(--exposure-3)}.b-sunk{fill:var(--surface-sunken)}.b-neg{fill:var(--negative)}.b-pos{fill:var(--positive)}
+.ring{fill:none;stroke:var(--surface);stroke-width:var(--stroke-hairline)}
+.cv .name{position:absolute;left:32px;bottom:64px;margin:0;font:600 64px/.95 var(--font-serif);letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
+.cv .tag{position:absolute;left:34px;bottom:32px;margin:0;font:400 14px/20px var(--font-sans);color:var(--ink-muted)}
+</style></head><body><div class="cv">
+<svg width="960" height="104" viewBox="0 0 960 104" aria-hidden="true">
+<!-- blocks: navy 340x104, ink 160x104, exposure-3 180x104, surface-sunken 120x104, negative 80x104, positive 80x104; sides are multiples of space-1 (4px).
+     arrangement: one flush strip of unequal bands bleeding across the top (top-band skeleton, because the name is too wide for the side zone); navy and ink lead, the two signal hues stay small at the right edge.
+     pattern: ripple, five concentric hairline arcs from the navy/ink seam (butterfly effect: a small cause spreading outward), drawn as the ground cut out of the blocks.
+     steps/radii: space-1 multiples for block sides; ring spacing 32px = space-6; stroke-hairline; radius-0 (square blocks). -->
+<rect class="b-navy" x="0" y="0" width="340" height="104"/><rect class="b-ink" x="340" y="0" width="160" height="104"/><rect class="b-exp3" x="500" y="0" width="180" height="104"/><rect class="b-sunk" x="680" y="0" width="120" height="104"/><rect class="b-neg" x="800" y="0" width="80" height="104"/><rect class="b-pos" x="880" y="0" width="80" height="104"/>
+<circle class="ring" cx="340" cy="104" r="32"/><circle class="ring" cx="340" cy="104" r="64"/><circle class="ring" cx="340" cy="104" r="96"/><circle class="ring" cx="340" cy="104" r="128"/><circle class="ring" cx="340" cy="104" r="160"/>
+</svg>
+<h1 class="name">Butterflynomics</h1>
+<p class="tag">First the panic. Then the pattern.</p>
+</div></body></html>
