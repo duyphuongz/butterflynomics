@@ -1,0 +1,28 @@
+# Chạy toàn bộ dự án ở local: docker compose up --build
+#   web      http://localhost:5173  (Vite dev server, có hot reload)
+#   api      http://localhost:8080  (Spring Boot)
+#   postgres localhost:5432
+include:
+  - src/backend/docker-compose.yml
+
+services:
+  web:
+    image: node:24-alpine
+    container_name: bfn-web
+    working_dir: /app/src/frontend
+    # Cài pnpm rồi cài phụ thuộc theo lockfile, sau đó chạy dev server nghe mọi địa chỉ trong container.
+    command: sh -c "npm install -g pnpm@12 && pnpm install --frozen-lockfile && pnpm dev --host 0.0.0.0"
+    environment:
+      VITE_USE_POLLING: "true"
+    ports:
+      - "5173:5173"
+    volumes:
+      # Mount mã nguồn để sửa trên máy là thấy ngay trong container.
+      - ./src/frontend:/app/src/frontend
+      # Frontend nạp Design System qua alias @ds (../../butterflynomics-design-system).
+      - ./butterflynomics-design-system:/app/butterflynomics-design-system:ro
+      # node_modules nằm trong volume riêng, không lẫn với bản cài trên Windows.
+      - web-node-modules:/app/src/frontend/node_modules
+
+volumes:
+  web-node-modules:

@@ -8,6 +8,10 @@ Butterflynomics is an analysis and explanation tool for US economic news. It tur
 
 **Status:** MVP under development. The landing page, the login and signup pages, and a login API are built. The analysis features are not implemented yet.
 
+![Butterflynomics landing page](assets/landing.png)
+
+*The landing page. The propagation map shows illustrative data, not real data.*
+
 See the [product proposal](docs/butterflynomics-mvp-proposal-v0.3.md) for details.
 
 ## Repository layout
@@ -18,4 +22,6 @@ src/
   backend/                        Spring Boot (Java 21), PostgreSQL
 butterflynomics-design-system/    Design tokens, components, fonts, logo
 docs/                             Product proposal
+assets/                           README images
+docker-compose.yml                Runs frontend, backend and PostgreSQL locally
 ```

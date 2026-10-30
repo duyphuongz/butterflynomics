@@ -54,7 +54,11 @@ function dsFavicon(): Plugin {
 export default defineConfig({
   plugins: [dsBundleFix(), dsFavicon(), react(), tailwindcss()],
   resolve: { alias: { '@ds': ds, '@': path.resolve(dir, 'src') } },
-  server: { fs: { allow: [dir, ds] } },
+  server: {
+    fs: { allow: [dir, ds] },
+    // Trong Docker trên Windows, thư mục mount không phát sự kiện thay đổi tệp nên cần polling.
+    watch: process.env.VITE_USE_POLLING === 'true' ? { usePolling: true, interval: 300 } : undefined,
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
