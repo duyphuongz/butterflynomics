@@ -1,0 +1,41 @@
+/* TEMP: chờ Design System bổ sung.
+ * Nút "Đăng nhập" trên TopBar: màu do tác giả chỉ định trực tiếp (17/10/2026, spec 003),
+ * nằm ngoài bảng token. Chữ trắng trên nền này đạt 5.54:1.
+ * Giữ vòng focus của bn-btn--inverse; nền không đổi khi rê chuột/nhấn. */
+:root {
+  --app-login-bg: #0062dd;
+}
+
+/* TEMP: chờ Design System bổ sung.
+ * Màu tag Có lợi / Trung tính / Bất lợi do tác giả chọn (17/10/2026, spec 003 L9):
+ * cùng độ sáng và độ đậm OKLCH với #0062dd, chỉ xoay tông màu.
+ * Chữ trên nền nhạt: xanh lá 4.58:1, đỏ 5.20:1, xám 4.68:1.
+ * Áp ở cả hai theme theo yêu cầu tác giả: ở light-cb, cặp xanh lá/đỏ không còn dễ phân biệt; glyph ▲ ▼ ● và chữ gánh nghĩa. */
+:root {
+  --app-tag-positive: #02813a;
+  --app-tag-positive-tint: #e1fce6;
+  --app-tag-negative: #c5181d;
+  --app-tag-negative-tint: #ffebe8;
+  --app-tag-neutral: #6b6b6b;
+  --app-tag-neutral-tint: #f0f0f0;
+}
+
+.app-tag--positive {
+  color: var(--app-tag-positive);
+  background: var(--app-tag-positive-tint);
+}
+.app-tag--negative {
+  color: var(--app-tag-negative);
+  background: var(--app-tag-negative-tint);
+}
+.app-tag--neutral {
+  color: var(--app-tag-neutral);
+  background: var(--app-tag-neutral-tint);
+}
+
+.app-btn-login,
+.app-btn-login:hover,
+.app-btn-login:active {
+  background: var(--app-login-bg);
+  color: var(--on-navy);
+}

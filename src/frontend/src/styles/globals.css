@@ -1,0 +1,45 @@
+@layer theme, base, ds, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import '@ds/fonts/fonts.css' layer(ds);
+@import '@ds/tokens.css' layer(ds);
+@import '@ds/components/bundle.css' layer(ds);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import './overrides.css';
+
+/* Chỉ alias biến của Design System. Không mã màu. */
+@theme inline {
+  --color-*: initial;
+  --color-surface: var(--surface);
+  --color-subtle: var(--surface-subtle);
+  --color-sunken: var(--surface-sunken);
+  --color-inverse: var(--surface-inverse);
+  --color-ink: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-faint: var(--ink-faint);
+  --color-border: var(--border);
+  --color-rule: var(--rule);
+  --color-navy: var(--navy);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-caution: var(--caution);
+
+  --spacing-ds-1: var(--space-1);
+  --spacing-ds-2: var(--space-2);
+  --spacing-ds-3: var(--space-3);
+  --spacing-ds-4: var(--space-4);
+  --spacing-ds-5: var(--space-5);
+  --spacing-ds-6: var(--space-6);
+  --spacing-ds-7: var(--space-7);
+  --spacing-ds-8: var(--space-8);
+
+  --container-page: var(--page-max);
+  --container-measure: var(--measure-report);
+}
+
+/* Trang gốc: nền DS, không cuộn mượt. */
+html {
+  scroll-behavior: auto;
+  background: var(--surface);
+}
