@@ -3,8 +3,11 @@ package com.butterflynomics.application.auth;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.butterflynomics.application.auth.login.LoginCommand;
+import com.butterflynomics.application.auth.login.LoginService;
 import com.butterflynomics.application.user.UserRepository;
 import com.butterflynomics.domain.user.Email;
+import com.butterflynomics.domain.user.Password;
 import com.butterflynomics.domain.user.User;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,20 +18,49 @@ import org.junit.jupiter.api.Test;
  */
 class LoginServiceTest {
 
-    private static final String HASH = "hash-cua-Password123";
+    private static final Password HASH = new Password("hash-cua-Password123");
 
     // Đồ giả: "băm" chỉ là so sánh chuỗi
-    private final PasswordHasher fakeHasher = (raw, hash) -> hash.equals("hash-cua-" + raw);
+    // private final PasswordHasher fakeHasher = (raw, hash) ->
+    // hash.equals("hash-cua-" + raw);
+    private final PasswordHasher fakeHasher = new PasswordHasher() {
+        @Override
+        public boolean matches(String rawPassword, String passwordHash) {
+            return passwordHash.equals("hash-cua-" + rawPassword);
+        }
+
+        @Override
+        public String hash(String rawPassword) {
+            return "hash-cua-" + rawPassword;
+        }
+    };
     private final TokenIssuer fakeIssuer = user -> new AccessToken("token-cua-" + user.getEmail().value(), 3600);
 
     private LoginService serviceWith(User... existing) {
-        UserRepository repo = email -> {
-            for (User u : existing) {
-                if (u.getEmail().equals(email)) {
-                    return Optional.of(u);
+        // UserRepository repo = email -> {
+        // for (User u : existing) {
+        // if (u.getEmail().equals(email)) {
+        // return Optional.of(u);
+        // }
+        // }
+        // return Optional.empty();
+        // };
+        UserRepository repo = new UserRepository() {
+            @Override
+            public Optional<User> findByEmail(Email email) {
+                for (User u : existing) {
+                    if (u.getEmail().equals(email)) {
+                        return Optional.of(u);
+                    }
                 }
+                return Optional.empty();
             }
-            return Optional.empty();
+
+            @Override
+            public void save(User user) {
+                throw new UnsupportedOperationException(
+                        "Login Service test do not need save function");
+            }
         };
         return new LoginService(repo, fakeHasher, fakeIssuer);
     }

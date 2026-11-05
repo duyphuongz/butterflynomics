@@ -5,18 +5,33 @@ import java.util.UUID;
 
 public class User {
     private final UUID id;
+    // Ở đây ta cho Email là một Value Object
+    // Email chứa các nghiệp vụ phức tạp dành riêng cho Email nên
+    // Ở đây email là một Value Object là điều nên làm
     private final Email email;
-    private final String passwordHash;
+    private final Password passwordHash; // Mật khẩu phải được hash để tránh lộ mật khẩu gốc
     private boolean active;
 
-    private User(UUID id, Email email, String passwordHash, boolean active) {
+    // Trong DDD, người ta tránh để hàm là một public constructor
+    // Vì để bảo vệ được nghiệp vụ, trước khi tạo phải thông qua một số quy tắc
+    // (Aggerate)
+    // Giúp việc tạo Object trở nên có ngữ nghĩa hơn
+    // Các hàm register hay restore là một ví dụ
+    private User(UUID id, Email email, Password passwordHash, boolean active) {
         this.id = Objects.requireNonNull(id, "Id must not be null");
         this.email = Objects.requireNonNull(email, "Email must not be null");
         this.passwordHash = Objects.requireNonNull(passwordHash, "passwordHash must not be null");
         this.active = active;
     }
 
-    public static User restore(UUID id, Email email, String passwordHash, boolean active) {
+    // Static Factory Method
+    // Sử dụng để tạo một user
+    public static User register(Email email, Password passwordHash) {
+        return new User(UUID.randomUUID(), email, passwordHash, true);
+    }
+
+    // Chuyển dữ liệu từ một Value Object thành Entity
+    public static User restore(UUID id, Email email, Password passwordHash, boolean active) {
         return new User(id, email, passwordHash, active);
     }
 
@@ -28,7 +43,7 @@ public class User {
         return email;
     }
 
-    public String getPasswordHash() {
+    public Password getPasswordHash() {
         return passwordHash;
     }
 

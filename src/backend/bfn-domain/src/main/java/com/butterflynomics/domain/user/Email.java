@@ -3,6 +3,10 @@ package com.butterflynomics.domain.user;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+//Value Object 
+//Không phải Entity, không có định danh, chỉ quan tâm value 
+//Nghiệp vụ của một thuộc tính ở trong này
+//Email phải đúng chuẩn: có @, không null, không blank, có độ dài hợp lý 
 public record Email(String value) {
     private static final Pattern PATTERN = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
 
