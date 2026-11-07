@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class UserTest {
 
     private static User user(UUID id, boolean active) {
-        return User.restore(id, new Email("a@b.com"), new Password("hash"), active);
+        return User.restore(id, new Email("a@b.com"), new PasswordHash("hash"), active);
     }
 
     @Test
@@ -36,9 +36,9 @@ class UserTest {
     @Test
     void khongChoPhepThieuDuLieuBatBuoc() {
         assertThrows(NullPointerException.class,
-                () -> User.restore(null, new Email("a@b.com"), new Password("hash"), true));
+                () -> User.restore(null, new Email("a@b.com"), new PasswordHash("hash"), true));
         assertThrows(NullPointerException.class,
-                () -> User.restore(UUID.randomUUID(), null, new Password("hash"), true));
+                () -> User.restore(UUID.randomUUID(), null, new PasswordHash("hash"), true));
     }
 
     @Test

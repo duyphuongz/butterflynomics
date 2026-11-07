@@ -1,4 +1,4 @@
-package com.butterflynomics.application.auth;
+package com.butterflynomics.application.auth.exceptions;
 
 public class InvalidCredentialsException extends RuntimeException {
     public InvalidCredentialsException() {

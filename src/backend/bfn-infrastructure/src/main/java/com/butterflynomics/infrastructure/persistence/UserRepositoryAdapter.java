@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.butterflynomics.application.user.UserRepository;
 import com.butterflynomics.domain.user.Email;
-import com.butterflynomics.domain.user.Password;
+import com.butterflynomics.domain.user.PasswordHash;
+import com.butterflynomics.domain.user.RawPassword;
 import com.butterflynomics.domain.user.User;
 
 //Ta sử dụng một lớp trung gian để triển khai User Repository
@@ -25,11 +26,11 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     private User toDomain(UserJpaEntity entity) {
-        return User.restore(entity.getId(), new Email(entity.getEmail()), new Password(entity.getPasswordHash()),
+        return User.restore(entity.getId(), new Email(entity.getEmail()), new PasswordHash(entity.getPasswordHash()),
                 entity.isActive());
     }
 
-    private UserJpaEntity toEntity(UUID id, Email email, Password passwordHash, boolean active) {
+    private UserJpaEntity toEntity(UUID id, Email email, PasswordHash passwordHash, boolean active) {
         return new UserJpaEntity(id, email.value(), passwordHash.value(), active);
     }
 

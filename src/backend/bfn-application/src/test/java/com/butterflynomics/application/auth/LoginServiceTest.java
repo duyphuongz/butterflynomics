@@ -3,11 +3,13 @@ package com.butterflynomics.application.auth;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.butterflynomics.application.auth.exceptions.InvalidCredentialsException;
 import com.butterflynomics.application.auth.login.LoginCommand;
 import com.butterflynomics.application.auth.login.LoginService;
 import com.butterflynomics.application.user.UserRepository;
 import com.butterflynomics.domain.user.Email;
-import com.butterflynomics.domain.user.Password;
+import com.butterflynomics.domain.user.PasswordHash;
+import com.butterflynomics.domain.user.RawPassword;
 import com.butterflynomics.domain.user.User;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,7 +20,7 @@ import org.junit.jupiter.api.Test;
  */
 class LoginServiceTest {
 
-    private static final Password HASH = new Password("hash-cua-Password123");
+    private static final PasswordHash HASH = new PasswordHash("hash-cua-Password123");
 
     // Đồ giả: "băm" chỉ là so sánh chuỗi
     // private final PasswordHasher fakeHasher = (raw, hash) ->

@@ -9,7 +9,7 @@ public class User {
     // Email chứa các nghiệp vụ phức tạp dành riêng cho Email nên
     // Ở đây email là một Value Object là điều nên làm
     private final Email email;
-    private final Password passwordHash; // Mật khẩu phải được hash để tránh lộ mật khẩu gốc
+    private final PasswordHash passwordHash; // Mật khẩu phải được hash để tránh lộ mật khẩu gốc
     private boolean active;
 
     // Trong DDD, người ta tránh để hàm là một public constructor
@@ -17,7 +17,7 @@ public class User {
     // (Aggerate)
     // Giúp việc tạo Object trở nên có ngữ nghĩa hơn
     // Các hàm register hay restore là một ví dụ
-    private User(UUID id, Email email, Password passwordHash, boolean active) {
+    private User(UUID id, Email email, PasswordHash passwordHash, boolean active) {
         this.id = Objects.requireNonNull(id, "Id must not be null");
         this.email = Objects.requireNonNull(email, "Email must not be null");
         this.passwordHash = Objects.requireNonNull(passwordHash, "passwordHash must not be null");
@@ -26,12 +26,12 @@ public class User {
 
     // Static Factory Method
     // Sử dụng để tạo một user
-    public static User register(Email email, Password passwordHash) {
+    public static User register(Email email, PasswordHash passwordHash) {
         return new User(UUID.randomUUID(), email, passwordHash, true);
     }
 
     // Chuyển dữ liệu từ một Value Object thành Entity
-    public static User restore(UUID id, Email email, Password passwordHash, boolean active) {
+    public static User restore(UUID id, Email email, PasswordHash passwordHash, boolean active) {
         return new User(id, email, passwordHash, active);
     }
 
@@ -43,7 +43,7 @@ public class User {
         return email;
     }
 
-    public Password getPasswordHash() {
+    public PasswordHash getPasswordHash() {
         return passwordHash;
     }
 

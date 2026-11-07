@@ -32,7 +32,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public TokenResponse register(@Valid @RequestBody RegisterRequest request) {
-        AccessToken token = registerUseCase.register(new RegisterCommand(request.email(), request.password()));
+        AccessToken token = registerUseCase
+                .register(new RegisterCommand(request.email(), request.password(), request.confirmPassword()));
         return new TokenResponse(token.value(), "Bearer", token.expiresInSeconds());
     }
 }

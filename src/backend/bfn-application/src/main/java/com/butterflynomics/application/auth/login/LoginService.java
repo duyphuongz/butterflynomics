@@ -1,14 +1,14 @@
 package com.butterflynomics.application.auth.login;
 
 import com.butterflynomics.application.auth.AccessToken;
-import com.butterflynomics.application.auth.InvalidCredentialsException;
 import com.butterflynomics.application.auth.PasswordHasher;
 import com.butterflynomics.application.auth.TokenIssuer;
+import com.butterflynomics.application.auth.exceptions.InvalidCredentialsException;
 import com.butterflynomics.application.user.UserRepository;
 import com.butterflynomics.domain.user.Email;
 import com.butterflynomics.domain.user.InvalidEmailException;
 import com.butterflynomics.domain.user.InvalidPasswordException;
-import com.butterflynomics.domain.user.Password;
+import com.butterflynomics.domain.user.RawPassword;
 import com.butterflynomics.domain.user.User;
 
 // LoginService là nơi triển khai logic nghiệp vụ của LoginUseCase
@@ -40,10 +40,10 @@ public class LoginService implements LoginUseCase {
             throw new InvalidCredentialsException(); // bắt lỗi
         }
 
-        Password validPassword;
+        RawPassword validPassword;
 
         try {
-            validPassword = new Password(command.password());
+            validPassword = new RawPassword(command.password());
         } catch (InvalidPasswordException e) {
             throw new InvalidCredentialsException();
         }
