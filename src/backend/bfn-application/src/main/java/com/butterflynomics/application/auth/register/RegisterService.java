@@ -4,7 +4,6 @@ import com.butterflynomics.application.auth.AccessToken;
 import com.butterflynomics.application.auth.PasswordHasher;
 import com.butterflynomics.application.auth.TokenIssuer;
 import com.butterflynomics.application.auth.exceptions.EmailAlreadyUsedException;
-import com.butterflynomics.application.auth.exceptions.InvalidCredentialsException;
 import com.butterflynomics.application.auth.exceptions.InvalidRegisterException;
 import com.butterflynomics.application.user.UserRepository;
 import com.butterflynomics.domain.user.ConfirmPasswordNotMatchedException;
@@ -28,28 +27,17 @@ public class RegisterService implements RegisterUseCase {
 
     @Override
     public AccessToken register(RegisterCommand command) {
-        RawPassword rawPassword;
-        RawPassword confirmPassword;
-        try {
-            rawPassword = new RawPassword(command.password());
-            confirmPassword = new RawPassword(command.confirmPassword());
-
-        } catch (InvalidPasswordException e) {
-            throw new InvalidRegisterException(e.getMessage(), e);
-        }
+        RawPassword rawPassword = new RawPassword(command.password());
+        RawPassword confirmPassword = new RawPassword(command.confirmPassword());
 
         if (!rawPassword.equals(confirmPassword)) {
             throw new ConfirmPasswordNotMatchedException();
         }
 
-        Email email;
-        try {
-            email = new Email(command.email());
-            if (repo.findByEmail(email).isPresent()) { // Một bài học: chỉ được đụng Database khi kiểm duyệt mọi data
-                throw new EmailAlreadyUsedException();
-            }
-        } catch (InvalidEmailException | EmailAlreadyUsedException e) {
-            throw new InvalidRegisterException(e.getMessage(), e);
+        Email email = new Email(command.email());
+
+        if (repo.findByEmail(email).isPresent()) { // Một bài học: chỉ được đụng Database khi kiểm duyệt mọi data
+            throw new EmailAlreadyUsedException();
         }
 
         User newUser = User.register(email, new PasswordHash(hasher.hash(rawPassword.value())));

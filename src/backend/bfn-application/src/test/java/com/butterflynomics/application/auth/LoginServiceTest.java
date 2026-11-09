@@ -59,6 +59,16 @@ class LoginServiceTest {
             }
 
             @Override
+            public Optional<User> findById(UUID id) {
+                for (User u : existing) {
+                    if (u.getEmail().equals(id)) {
+                        return Optional.of(u);
+                    }
+                }
+                return Optional.empty();
+            }
+
+            @Override
             public void save(User user) {
                 throw new UnsupportedOperationException(
                         "Login Service test do not need save function");

@@ -9,7 +9,7 @@ public class User {
     // Email chứa các nghiệp vụ phức tạp dành riêng cho Email nên
     // Ở đây email là một Value Object là điều nên làm
     private final Email email;
-    private final PasswordHash passwordHash; // Mật khẩu phải được hash để tránh lộ mật khẩu gốc
+    private PasswordHash passwordHash; // Mật khẩu phải được hash để tránh lộ mật khẩu gốc
     private boolean active;
 
     // Trong DDD, người ta tránh để hàm là một public constructor
@@ -45,6 +45,10 @@ public class User {
 
     public PasswordHash getPasswordHash() {
         return passwordHash;
+    }
+
+    public void changePassword(PasswordHash newPasswordHash) {
+        this.passwordHash = Objects.requireNonNull(newPasswordHash, "passwordHash must not be null");
     }
 
     public boolean canLogin() {

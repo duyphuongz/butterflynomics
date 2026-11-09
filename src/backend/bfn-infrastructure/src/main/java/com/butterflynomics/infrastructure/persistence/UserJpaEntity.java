@@ -2,8 +2,6 @@ package com.butterflynomics.infrastructure.persistence;
 
 import java.util.UUID;
 
-import com.butterflynomics.domain.user.User;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
